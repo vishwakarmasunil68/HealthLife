@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.emobi.healthlife.R;
 import com.emobi.healthlife.pojo.RegisterPOJO;
+import com.emobi.healthlife.pojo.RegisterResultPOJO;
+import com.emobi.healthlife.utility.Pref;
+import com.emobi.healthlife.utility.StringUtil;
 import com.emobi.healthlife.webservices.WebServiceBase;
 import com.emobi.healthlife.webservices.WebServicesCallBack;
 import com.emobi.healthlife.webservices.WebServicesUrls;
@@ -146,8 +149,36 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(pojo!=null){
             try{
                 if(pojo.getSuccess().equals("true")){
-                    Toast.makeText(getApplicationContext(),"Registration Successfull",Toast.LENGTH_LONG).show();
-                    finish();
+                    RegisterResultPOJO resultPOJO=pojo.getResult();
+                    if(pojo!=null) {
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.ID, resultPOJO.getId());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.actcode, resultPOJO.getActcode());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.intime, resultPOJO.getIntime());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.referrer, resultPOJO.getReferrer());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.usercode, resultPOJO.getUsercode());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.active, resultPOJO.getActive());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.login, resultPOJO.getLogin());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.name, resultPOJO.getName());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.user_ip, resultPOJO.getUser_ip());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.emailid, resultPOJO.getEmailid());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.mailstatus, resultPOJO.getMailstatus());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.mobileno, resultPOJO.getMobileno());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.homeaddress, resultPOJO.getHomeaddress());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.password, resultPOJO.getPassword());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.dob, resultPOJO.getDob());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.sex, resultPOJO.getSex());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.usertype, resultPOJO.getUsertype());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.address, resultPOJO.getAddress());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.school, resultPOJO.getSchool());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.course, resultPOJO.getCourse());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.usergroup, resultPOJO.getUsergroup());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.protocol, resultPOJO.getProtocol());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.user_lat, resultPOJO.getUser_lat());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.user_long, resultPOJO.getUser_long());
+                        Pref.SetStringPref(getApplicationContext(), StringUtil.language, resultPOJO.getLanguage());
+                        Toast.makeText(getApplicationContext(),"Register Successfull",Toast.LENGTH_LONG).show();
+                        finish();
+                    }
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"Registration Failed",Toast.LENGTH_LONG).show();
